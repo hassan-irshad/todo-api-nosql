@@ -36,9 +36,9 @@ describe('GET /todo/api/v1.0/tasks', () => {
     it('should get all the tasks', (done) => {
         request(app)
             .get('/todo/api/v1.0/tasks')
-            .status(200)
+            .expect(200)
             .expect((res) => {
-                expect(res.body.todos.length).toBe(1);
+                expect(res.body.length).toBe(1);
             })
             .end(done);
     });

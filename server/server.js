@@ -21,10 +21,18 @@ app.post('/todo/api/v1.0/tasks', (req, res) => {
     });
 });
 
+app.get('/todo/api/v1.0/tasks', (req, res) => {
+    Todo.find().then((todos) => {
+        res.status(200).send(todos);
+    }, (e) => {
+        res.status(400).send();
+    });
+});
+
 
 
 app.listen(5000, () => {
-    console.log('Listenning to the port 3000');
+    console.log('Listenning to the port 5000');
 });
 
 module.exports = {app};
