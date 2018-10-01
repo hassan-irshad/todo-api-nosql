@@ -1,16 +1,14 @@
 const express = require('express');
+const bodyParser = require('body-parser');
 
 const {mongoose} = require('./db/mongoose');
 const {Todo} = require('./models/todos');
 
+var app = express();
 
-var todo = new Todo({
-    title: 'Node',
-    description: 'Welcome to the node course'
-});
 
-todo.save().then((doc) => {
-    console.log(doc);
-}, (e) => {
-    console.log(e);
+app.use(bodyParser.json());
+
+app.listen(3000, () => {
+    console.log('Listenning to the port 3000');
 });
