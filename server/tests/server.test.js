@@ -14,7 +14,7 @@ describe('POST /todo/api/v1.0/tasks', () => {
 
         request(app)
             .post('/todo/api/v1.0/tasks')
-            .send({todo})
+            .send(todo)
             .expect(200)
             .expect((res) => {
                 expect(res.body.title).toBe(todo.title);
