@@ -124,7 +124,7 @@ describe('DELETE /todo/api/v1.0/tasks/:id', () => {
                 }
 
                 Todo.findById(testTodo._id.toHexString()).then((todo) => {
-                    expect(todo).toBe({});
+                    expect(todo).toEqual(null);
                     done();
                 }).catch((e) => done(e));
             });
