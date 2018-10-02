@@ -109,3 +109,40 @@ describe('PUT /todo/api/v1.0/tasks/:id', () => {
             .end(done);
     });
 });
+
+describe('DELETE /todo/api/v1.0/tasks/:id', () => {
+    it('should remove the todo ', (done) => {
+        request(app)
+            .delete(`/todo/api/v1.0/tasks/${testTodo._id.toHexString()}`)
+            .expect(200)
+            .expect((res) => {
+                expect(res.body.title).toBe(testTodo.title);
+            })
+            .end((err, res) => {
+                if(err) {
+                    return done(err);
+                }
+
+                Todo.findById(testTodo._id.toHexString()).then((todo) => {
+                    expect(todo).toBe({});
+                    done();
+                }).catch((e) => done(e));
+            });
+    });
+    it('should return 404 if todo not found', (done) => {
+        var id = new ObjectID().toHexString();
+
+        request(app)
+            .delete(`/todo/api/v1.0/tasks/${id}`)
+            .expect(404)
+            .end(done);
+    });
+    it('should return 400 if the id is invalid', (done) => {
+        var id = '5bb281027ec96548442ffd5dsfsf'
+
+        request(app)
+            .delete(`/todo/api/v1.0/tasks/${id}`)
+            .expect(400)
+            .end(done);
+    });
+});
