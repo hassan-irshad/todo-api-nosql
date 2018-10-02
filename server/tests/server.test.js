@@ -76,15 +76,19 @@ describe('GET /todo/api/v1.0/tasks/:id', () => {
 
 describe('PUT /todo/api/v1.0/tasks/:id', () => {
     it('should return the updated todo', (done) => {
-        var title = 'Hassan';
-
+        var todo = {
+            title: 'Hassan',
+            description: 'Hello world'
+        }
+    
         request(app)
             .put(`/todo/api/v1.0/tasks/${testTodo._id.toHexString()}`)
-            .send({title})
             .expect(200)
+            .send(todo)
             .expect((res) => {
-                expect(res.body.title).toBe(title);
-                expect(res.body.describe).toBe(testTodo.description);
+                expect(res.body.title).toBe(todo.title);
+                expect(res.body.description).toBe(todo.description);
+                
             })
             .end(done);
     });
